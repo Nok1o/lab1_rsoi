@@ -1,7 +1,20 @@
-version: "3"
 services:
+  app:
+    build:
+      context: backend
+    container_name: person-service
+    restart: on-failure
+    environment:
+      PORT: "8080"
+      DATABASE_URL: postgres://program:test@postgres:5432/persons?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
   postgres:
-    image: library/postgres:13
+    image: library/postgres:17
     container_name: postgres
     restart: on-failure
     environment:
@@ -13,6 +26,11 @@ services:
       - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d persons"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
 
 volumes:
   db-data:
