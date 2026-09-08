@@ -3,11 +3,11 @@
     {
       "name": "Run Postman",
       "setup": "",
-      "run": "newman run -e postman/[inst][heroku]\\ Lab1.postman_environment.json postman/[inst]\\ Lab1.postman_collection.json",
+      "run": "newman run \"postman/[inst] Lab1.postman_collection.json\" -e \"postman/[inst][heroku] Lab1.postman_environment.json\" --env-var \"baseUrl=$RAILWAY_BASE_URL\"",
       "input": "",
       "output": "",
       "comparison": "included",
-      "timeout": 10,
+      "timeout": 60,
       "points": 10
     }
   ]

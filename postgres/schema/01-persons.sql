@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS persons (
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    age INTEGER NOT NULL DEFAULT 0 CHECK (age >= 0),
+    address TEXT NOT NULL DEFAULT '',
+    work TEXT NOT NULL DEFAULT ''
+);
